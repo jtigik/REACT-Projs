@@ -13,6 +13,8 @@ para que o React possa diferenciá-lo de elementos HTML nativos.
 A esse padrão de nomenclatura, damos o nome de PascalCase. */
 
 import { Fragment } from "react/jsx-runtime";
+import "./styles/global.css";
+import "./styles/theme.css";
 
 export function App() {
     console.log("Renderizando o componente App");
