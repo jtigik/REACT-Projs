@@ -12,7 +12,6 @@ Seu nome deve obedecer a convenção de começar com letra maiúscula,
 para que o React possa diferenciá-lo de elementos HTML nativos. 
 A esse padrão de nomenclatura, damos o nome de PascalCase. */
 
-import { Fragment } from "react/jsx-runtime";
 import { Heading } from "./components/Heading";
 
 import "./styles/global.css";
@@ -21,14 +20,16 @@ import "./styles/theme.css";
 export function App() {
     console.log("Renderizando o componente App");
     return (
-        <Fragment>
-            <Heading />
+        <>
+            <Heading attr1={123456} attr2='Qualquer String'>
+                Olá Mundo 1!
+            </Heading>
             <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
                 minus ullam recusandae explicabo rerum quae ab veritatis ipsa
                 omnis, nam illo dolorum perspiciatis inventore itaque
                 necessitatibus obcaecati aperiam aperiam.
             </p>
-        </Fragment>
+        </>
     );
 }
