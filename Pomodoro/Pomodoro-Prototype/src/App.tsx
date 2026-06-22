@@ -27,7 +27,13 @@ export function App() {
             <Container>
                 <form className="form" action="">
                     <div className="formRow">
-                        <DefaultInput labelText="Task" id="myInput" type='text' required/>
+                        <DefaultInput 
+                            labelText="Task" 
+                            id="myInput" 
+                            type='text' 
+                            placeholder="Enter your task"
+                            /*disabled*/
+                        />
                     </div>
                     <div className="formRow">
                         <p>Lorem ipsum dolor sit amet consectetur.</p>
