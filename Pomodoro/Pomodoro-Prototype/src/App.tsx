@@ -9,7 +9,7 @@ import "./styles/global.css";
 import "./styles/theme.css";
 
 export function App() {
-    console.log("Renderizando o componente App");
+
     return (
         <>
             <Container>
@@ -27,7 +27,7 @@ export function App() {
             <Container>
                 <form className="form" action="">
                     <div className="formRow">
-                        <DefaultInput type='text' />
+                        <DefaultInput labelText="Task" id="myInput" type='text' required/>
                     </div>
                     <div className="formRow">
                         <p>Lorem ipsum dolor sit amet consectetur.</p>
