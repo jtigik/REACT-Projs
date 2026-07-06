@@ -1,5 +1,5 @@
 import { HistoryIcon, SettingsIcon, SunIcon, TimerIcon } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./styles.module.css";
 
 type AvailableThemes = 'dark' | 'light';
@@ -16,12 +16,21 @@ export function Menu() {
             const nextTheme = prevTheme === "dark" ? "light" : "dark";
             return nextTheme;
         });
-
-        document.documentElement.setAttribute("data-theme", theme);
     }
+
+    useEffect(() => {
+        document.documentElement.setAttribute("data-theme", theme);
+
+        return () => {
+            //Executando a função de limpeza quando o componente for desmontado
+            document.documentElement.removeAttribute("data-theme");
+        }
+
+    }, [theme]); // Executa apenas quando o tema mudar
+
     return (
         <nav className={style.menu}>
-            <h1>{theme}</h1>
+            {/* <h1>{theme}</h1> */}
             <a 
                 className={style.menuLink} 
                 href='#'
