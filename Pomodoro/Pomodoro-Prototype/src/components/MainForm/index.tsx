@@ -5,6 +5,7 @@ import { DefaultInput } from "../DefaultInput";
 import { PlayCircleIcon } from "lucide-react";
 
 export function MainForm() {
+
     return (
         <form className="form" action="">
             <div className="formRow">
