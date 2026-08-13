@@ -7,6 +7,7 @@ import { Cycles } from "../Cycles";
 import { DefaultButton } from "../DefaultButton";
 import { DefaultInput } from "../DefaultInput";
 import { getNextCycleType } from "../../utils/getNextCycleType";
+import { formatSecondsToMinutes } from "../../utils/formatSecondsToMinutes";
 
 export function MainForm() {
     const { state, setState } = useTaskContext();
@@ -46,7 +47,7 @@ export function MainForm() {
                 activeTask: newTask,
                 currentCycle: nextCycle,
                 secondsRemaining, // Conferir
-                formattedSecondsRemaining: '00:00', // Conferir
+                formattedSecondsRemaining: formatSecondsToMinutes(secondsRemaining), // Conferir
                 tasks: [...prevState.tasks, newTask],
             };
         });
