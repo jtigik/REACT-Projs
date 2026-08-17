@@ -53,7 +53,6 @@ export function MainForm() {
         });
     }
 
-    /*Restante do código permanece inalterado*/
     return (
         <form className="form" action="" onSubmit={handleCreateNewTask}>
             <div className="formRow">
@@ -63,6 +62,7 @@ export function MainForm() {
                     type='text'
                     placeholder="Enter your task"
                     ref={taskNameInput}
+                    disabled={!!state.activeTask} // Desativando o input se tem task ativa 
                 />
             </div>
             <div className="formRow">
