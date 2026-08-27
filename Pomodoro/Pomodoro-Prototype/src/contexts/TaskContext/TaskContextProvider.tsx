@@ -1,44 +1,43 @@
-import { useEffect, useReducer } from 'react';
-import { TimerWorkerManager } from '../../workers/TimerWorkerManager';
-import { inicialTaskState } from './inicialTaskState';
-import { TaskContext } from './TaskContext';
-import { taskReducer } from './taskReducer';
-import { TaskActionTypes } from './taskActions';
+import { useEffect, useReducer } from "react";
+import { TimerWorkerManager } from "../../workers/TimerWorkerManager";
+import { initialTaskState } from "./initialTaskState";
+import { TaskActionTypes } from "./taskActions";
+import { TaskContext } from "./TaskContext";
+import { taskReducer } from "./taskReducer";
 
 type TaskContextProviderProps = {
     children: React.ReactNode;
 };
 
 export function TaskContextProvider({ children }: TaskContextProviderProps) {
-    const [state, dispatch] = useReducer(taskReducer, inicialTaskState);
-    const worker = TimerWorkerManager.getInstance();
+    const [state, dispatch] = useReducer(taskReducer, initialTaskState);
 
-    worker.onmessage((e) => {
-        const countDownSeconds = e.data;
-        console.log(countDownSeconds);
+    useEffect(() => {
+        if (!state.activeTask) return;
 
-        if (countDownSeconds <= 0) {
-            dispatch({
-                type: TaskActionTypes.COMPLETE_TASK,
-            });
-            worker.terminate();
-        } else {
+        const worker = TimerWorkerManager.getInstance();
+
+        worker.onmessage((e) => {
+            const countDownSeconds = e.data as number;
+
+            if (countDownSeconds <= 0) {
+                dispatch({ type: TaskActionTypes.COMPLETE_TASK });
+                worker.terminate();
+                return;
+            }
+
             dispatch({
                 type: TaskActionTypes.COUNT_DOWN,
                 payload: { secondsRemaining: countDownSeconds },
             });
-        }
-    });
-
-    useEffect(() => {
-        console.log(state);
-        if (!state.activeTask) {
-            console.log('Worker terminado por falta de activeTask');
-            worker.terminate();
-        }
+        });
 
         worker.postMessage(state);
-    }, [worker, state]);
+
+        return () => {
+            worker.terminate();
+        };
+    }, [state.activeTask]); // não usar [state]
 
     return (
         <TaskContext.Provider value={{ state, dispatch }}>

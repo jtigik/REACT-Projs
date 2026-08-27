@@ -64,5 +64,7 @@ export function taskReducer(
             };
         }
     }
+
+    // Sempre deve retornar o estado
     return state;
 }
